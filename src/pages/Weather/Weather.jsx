@@ -1,9 +1,7 @@
+import WeatherSection from "../../components/WeatherSection/WeatherSection";
+
 function Weather() {
-  return (
-    <div>
-      <h1>Weather</h1>
-    </div>
-  );
+  return <WeatherSection />;
 }
 
 export default Weather;

@@ -1,6 +1,17 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
 const Search = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const city = event.target.city.value;
+    navigate(`/weather/${city}`);
+  };
+
   return (
-    <form action="#" className="flex justify-center">
+    <form action="#" className="flex justify-center" onSubmit={handleSubmit}>
       <div className="relative rounded-md shadow-sm">
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
           <svg
