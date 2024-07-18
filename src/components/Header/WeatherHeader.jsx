@@ -1,19 +1,14 @@
 import Logo from "../../assets/logo.svg";
+import Search from "../Search/Search";
 
 function WeatherHeader() {
   return (
     <header className="bg-white flex items-center justify-between py-8 px-10">
-      <div className="flex gap-4">
+      <div className="flex gap-4 align-center">
         <a href="#">
           <img src={Logo} alt="Logo" className="h-10 w-auto" />
         </a>
-        <form action="#">
-          <input
-            type="text"
-            placeholder="Search for a city"
-            className="border border-gray-300 p-2 rounded-lg w-64 transition ease-in-out"
-          />
-        </form>
+        <Search />
       </div>
       <nav>
         <ul className="flex items-center justify-content space-x-6">
