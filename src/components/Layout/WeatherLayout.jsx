@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import WeatherHeader from "../WeatherHeader/WeatherHeader";
+import WeatherHeader from "../Header/WeatherHeader";
 
 function WeatherLayout() {
   return (
