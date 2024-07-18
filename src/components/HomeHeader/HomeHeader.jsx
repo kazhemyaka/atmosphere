@@ -2,7 +2,7 @@ import Logo from "../../assets/logo-big.svg";
 
 function HomeHeader() {
   return (
-    <header className="bg-white flex items-center justify-between py-6 px-10">
+    <header className="bg-white flex items-center justify-between py-6 px-5 sm:px-10">
       <div className="flex gap-4">
         <a href="#">
           <img src={Logo} alt="Logo" className="h-14 w-auto" />
