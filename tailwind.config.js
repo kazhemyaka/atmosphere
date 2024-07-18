@@ -6,6 +6,10 @@ export default {
       fontFamily: {
         sans: ["Nunito", "sans-serif"],
       },
+      colors: {
+        white: "#ffffff",
+        "dodger-blue": "#27beff",
+      },
     },
   },
   plugins: [],
