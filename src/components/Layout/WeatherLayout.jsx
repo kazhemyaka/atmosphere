@@ -3,9 +3,9 @@ import WeatherHeader from "../Header/WeatherHeader";
 
 function WeatherLayout() {
   return (
-    <div>
+    <div className="flex flex-col h-screen">
       <WeatherHeader />
-      <main>
+      <main className="flex-grow content-center justify-center">
         <Outlet />
       </main>
     </div>
