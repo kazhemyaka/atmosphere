@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import WeatherIcon from "../WeatherIcon/WeatherIcon";
 import WeatherInfos from "../WeatherInfos/WeatherInfos";
 
-const OPENWEATHERMAP_API_KEY = "09047e3382ae3a02c27e67fe96f35723";
-const UNSPLASH_API_KEY = "6VNxR4q1H63ongm_obMG1tMeuCn0DSFTC59uMjGc1s4";
+const OPENWEATHERMAP_API_KEY = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
+const UNSPLASH_API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
 
 const WeatherSection = () => {
   const { city } = useParams();
