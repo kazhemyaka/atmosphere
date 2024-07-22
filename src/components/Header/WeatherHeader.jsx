@@ -10,8 +10,8 @@ const elements = [
     href: "now",
   },
   {
-    name: "Today",
-    href: "today",
+    name: "Hourly",
+    href: "hourly",
   },
   {
     name: "Tomorrow",

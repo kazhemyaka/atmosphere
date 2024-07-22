@@ -34,7 +34,7 @@ const NowWeatherSection = () => {
         const { lat, lon } = geolocationData[0];
 
         const weatherResponse = await fetch(
-          `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${OPENWEATHERMAP_API_KEY}&units=metric`
+          `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,daily,alerts&appid=${OPENWEATHERMAP_API_KEY}&units=metric`
         );
         const weatherData = await weatherResponse.json();
         setWeatherData(weatherData);
@@ -128,7 +128,7 @@ const NowWeatherSection = () => {
             />
           </div>
         </div>
-        <WeatherInfos weatherData={weatherData} />
+        <WeatherInfos weatherData={weatherData.current} />
         <h2 className="mt-5 mb-3 text-2xl sm:text-3xl font-bold">Overview:</h2>
         <p className="text-lg">{weatherOverview.weather_overview}</p>
       </div>

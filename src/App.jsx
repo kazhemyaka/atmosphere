@@ -3,6 +3,7 @@ import HomeLayout from "./components/Layout/HomeLayout";
 import Home from "./pages/Home/Home";
 import WeatherLayout from "./components/Layout/WeatherLayout";
 import NowWeather from "./pages/NowWeather/NowWeather";
+import HourlyWeather from "./pages/HourlyWeather/HourlyWeather";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,11 @@ const router = createBrowserRouter([
         path: "now",
         element: <NowWeather />,
         children: [{ path: ":city", element: <NowWeather /> }],
+      },
+      {
+        path: "hourly",
+        element: <HourlyWeather />,
+        children: [{ path: ":city", element: <HourlyWeather /> }],
       },
     ],
   },

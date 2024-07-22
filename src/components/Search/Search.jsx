@@ -1,17 +1,19 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Search = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const city = event.target.city.value;
-    navigate(`/weather/now/${city}`);
+    const currentPath = location.pathname.split("/")[2] || "now";
+    navigate(`/weather/${currentPath}/${city}`);
   };
 
   return (
-    <form action="#" className="flex items-center" onSubmit={handleSubmit}>
+    <form className="flex items-center" onSubmit={handleSubmit}>
       <div className="relative w-full max-w-xs md:max-w-md lg:max-w-lg rounded-md shadow-sm">
         <div className="pointer-events-none absolute top-2 sm:top-1 left-0 flex items-center pl-3">
           <svg

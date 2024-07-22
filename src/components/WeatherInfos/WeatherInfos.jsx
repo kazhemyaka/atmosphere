@@ -8,7 +8,7 @@ import {
 } from "react-icons/fa6";
 import { FaTachometerAlt } from "react-icons/fa";
 
-const WeatherInfos = ({ weatherData }) => {
+const WeatherInfos = ({ weatherData, center }) => {
   const getWindDirection = (degrees) => {
     const directions = [
       "↓ N",
@@ -27,44 +27,44 @@ const WeatherInfos = ({ weatherData }) => {
     {
       icon: <FaTemperatureHalf />,
       desc: "Feels like",
-      value: `${Math.round(weatherData.current.feels_like)} °C`,
+      value: `${Math.round(weatherData.feels_like)} °C`,
     },
     {
       icon: <FaWind />,
       desc: "Wind",
-      value: `${weatherData.current.wind_speed.toFixed(
-        1
-      )} m/s ${getWindDirection(weatherData.current.wind_deg)}`,
+      value: `${weatherData.wind_speed.toFixed(1)} m/s ${getWindDirection(
+        weatherData.wind_deg
+      )}`,
     },
     {
       icon: <FaTachometerAlt />,
       desc: "Pressure",
-      value: `${weatherData.current.pressure} hPa`,
+      value: `${weatherData.pressure} hPa`,
     },
     {
       icon: <FaDroplet />,
       desc: "Humidity",
-      value: `${weatherData.current.humidity}%`,
+      value: `${weatherData.humidity}%`,
     },
     {
       icon: <FaSun />,
       desc: "UV",
-      value: Math.round(weatherData.current.uvi),
+      value: Math.round(weatherData.uvi),
     },
     {
       icon: <FaTemperatureHalf />,
       desc: "Dew point",
-      value: `${Math.round(weatherData.current.dew_point)} °C`,
+      value: `${Math.round(weatherData.dew_point)} °C`,
     },
     {
       icon: <FaEye />,
       desc: "Visibility",
-      value: `${(weatherData.current.visibility / 1000).toFixed(1)} km`,
+      value: `${(weatherData.visibility / 1000).toFixed(1)} km`,
     },
   ];
 
   return (
-    <ul className="flex gap-4 flex-wrap">
+    <ul className={`flex gap-4 flex-wrap ${center && "justify-center"}`}>
       {weatherInfos.map((info, index) => (
         <WeatherInfo key={index} {...info} />
       ))}
