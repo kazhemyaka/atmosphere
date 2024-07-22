@@ -19,7 +19,7 @@ const elements = [
   },
   {
     name: "Week",
-    href: "/week",
+    href: "week",
   },
 ];
 

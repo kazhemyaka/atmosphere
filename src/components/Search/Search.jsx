@@ -11,16 +11,16 @@ const Search = () => {
   };
 
   return (
-    <form action="#" className="flex" onSubmit={handleSubmit}>
+    <form action="#" className="flex items-center" onSubmit={handleSubmit}>
       <div className="relative w-full max-w-xs md:max-w-md lg:max-w-lg rounded-md shadow-sm">
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+        <div className="pointer-events-none absolute top-2 sm:top-1 left-0 flex items-center pl-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="h-6 w-6 text-gray-400"
+            className="size-6 text-gray-400"
           >
             <path
               strokeLinecap="round"
