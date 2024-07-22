@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import WeatherIcon from "../WeatherIcon/WeatherIcon";
 import WeatherInfos from "../WeatherInfos/WeatherInfos";
-import { ThreeDots } from "react-loader-spinner";
+import Loader from "../Loader/Loader";
 
 const OPENWEATHERMAP_API_KEY = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
 const UNSPLASH_API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
@@ -100,18 +100,7 @@ const NowWeatherSection = () => {
   }, [city]);
 
   if (!weatherData || !cityPhoto || !weatherOverview || !geolocationData) {
-    return (
-      <ThreeDots
-        visible={true}
-        height="80"
-        width="80"
-        color="#27beff"
-        radius="10"
-        ariaLabel="three-dots-loading"
-        wrapperStyle={{}}
-        wrapperClass="flex justify-center items-center h-full"
-      />
-    );
+    return <Loader />;
   }
 
   return (
