@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomeLayout from "./components/Layout/HomeLayout";
 import Home from "./pages/Home/Home";
 import WeatherLayout from "./components/Layout/WeatherLayout";
-import Weather from "./pages/Weather/Weather";
+import NowWeather from "./pages/NowWeather/NowWeather";
 
 const router = createBrowserRouter([
   {
@@ -14,8 +14,11 @@ const router = createBrowserRouter([
     path: "/weather",
     element: <WeatherLayout />,
     children: [
-      { index: true, element: <Weather /> },
-      { path: ":city", element: <Weather /> },
+      {
+        path: "now",
+        element: <NowWeather />,
+        children: [{ path: ":city", element: <NowWeather /> }],
+      },
     ],
   },
 ]);

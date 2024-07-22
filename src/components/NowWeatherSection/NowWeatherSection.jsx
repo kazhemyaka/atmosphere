@@ -2,16 +2,18 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import WeatherIcon from "../WeatherIcon/WeatherIcon";
 import WeatherInfos from "../WeatherInfos/WeatherInfos";
+import { ThreeDots } from "react-loader-spinner";
 
 const OPENWEATHERMAP_API_KEY = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
 const UNSPLASH_API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
 
-const WeatherSection = () => {
+const NowWeatherSection = () => {
   const { city } = useParams();
   const [weatherData, setWeatherData] = useState(null);
   const [cityPhoto, setCityPhoto] = useState(null);
   const [weatherOverview, setWeatherOverview] = useState(null);
   const [geolocationData, setGeolocationData] = useState([]);
+  const [error, setError] = useState(null);
 
   const fetchGeolocation = async () => {
     try {
@@ -22,6 +24,7 @@ const WeatherSection = () => {
       setGeolocationData(data);
     } catch (error) {
       console.error(error);
+      setError(error);
     }
   };
 
@@ -40,6 +43,7 @@ const WeatherSection = () => {
       }
     } catch (error) {
       console.error(error);
+      setError(error);
     }
   };
 
@@ -56,18 +60,20 @@ const WeatherSection = () => {
       }
     } catch (error) {
       console.error(error);
+      setError(error);
     }
   };
 
   const fetchCityPhoto = async () => {
     try {
       const response = await fetch(
-        `https://api.unsplash.com/search/photos?query=${city}&orientation=landscape&client_id=${UNSPLASH_API_KEY}`
+        `https://api.unsplash.com/search/photos?query=${geolocationData[0].name}&orientation=landscape&client_id=${UNSPLASH_API_KEY}`
       );
       const data = await response.json();
       setCityPhoto(data.results[0].urls.regular);
     } catch (error) {
       console.error(error);
+      setError(error);
     }
   };
 
@@ -85,8 +91,27 @@ const WeatherSection = () => {
     }
   }, [geolocationData]);
 
+  useEffect(() => {
+    setWeatherData(null);
+    setCityPhoto(null);
+    setWeatherOverview(null);
+    setGeolocationData([]);
+    setError(null);
+  }, [city]);
+
   if (!weatherData || !cityPhoto || !weatherOverview || !geolocationData) {
-    return <div className="px-5 sm:px-10 py-5">Loading...</div>;
+    return (
+      <ThreeDots
+        visible={true}
+        height="80"
+        width="80"
+        color="#27beff"
+        radius="10"
+        ariaLabel="three-dots-loading"
+        wrapperStyle={{}}
+        wrapperClass="flex justify-center items-center h-full"
+      />
+    );
   }
 
   return (
@@ -129,4 +154,4 @@ const WeatherSection = () => {
   );
 };
 
-export default WeatherSection;
+export default NowWeatherSection;

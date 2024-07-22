@@ -7,7 +7,7 @@ const Search = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const city = event.target.city.value;
-    navigate(`/weather/${city}`);
+    navigate(`/weather/now/${city}`);
   };
 
   return (
