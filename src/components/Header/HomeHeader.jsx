@@ -1,12 +1,13 @@
 import Logo from "../../assets/logo-big.svg";
+import { NavLink } from "react-router-dom";
 
 function HomeHeader() {
   return (
     <header className="bg-white flex items-center justify-between py-6 px-5 sm:px-10">
       <div className="flex gap-4">
-        <a href="#">
+        <NavLink to="/">
           <img src={Logo} alt="Logo" className="h-14 w-auto" />
-        </a>
+        </NavLink>
       </div>
       <nav>
         <ul className="flex items-center justify-content space-x-6">
