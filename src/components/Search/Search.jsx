@@ -11,8 +11,8 @@ const Search = () => {
   };
 
   return (
-    <form action="#" className="flex justify-center" onSubmit={handleSubmit}>
-      <div className="relative rounded-md shadow-sm">
+    <form action="#" className="flex" onSubmit={handleSubmit}>
+      <div className="relative w-full max-w-xs md:max-w-md lg:max-w-lg rounded-md shadow-sm">
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +20,7 @@ const Search = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="size-6 text-gray-400"
+            className="h-6 w-6 text-gray-400"
           >
             <path
               strokeLinecap="round"
@@ -33,7 +33,7 @@ const Search = () => {
           type="text"
           name="city"
           id="city"
-          className="w-full block rounded-md border border-gray-400 py-1.5 pl-12 pr-20 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 focus:outline-none focus:ring-1 focus:ring-dodger-blue focus:border-dodger-blue transition ease-in-out duration-150"
+          className="block w-full rounded-md border border-gray-400 py-1.5 pl-10 pr-3 text-gray-900 placeholder-gray-400 sm:text-sm focus:outline-none focus:ring-1 focus:ring-dodger-blue focus:border-dodger-blue transition ease-in-out duration-150"
           placeholder="Search for a city"
         />
       </div>
