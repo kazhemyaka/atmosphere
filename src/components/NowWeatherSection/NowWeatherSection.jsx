@@ -106,7 +106,11 @@ const NowWeatherSection = () => {
 
   return (
     <section className="px-5 sm:px-10 py-5 flex gap-10 xl:h-full flex-wrap-reverse xl:flex-nowrap">
-      <div className="basis-full">
+      <div
+        className={`basis-full ${
+          cityPhoto.results.length === 0 ? "" : "xl:basis-2/4"
+        }`}
+      >
         <div className="flex justify-between">
           <div>
             <Title text="Weather in" city={geolocationData[0].name} />
@@ -128,7 +132,7 @@ const NowWeatherSection = () => {
         <h2 className="mt-5 mb-3 text-2xl sm:text-3xl font-bold">Overview:</h2>
         <p className="text-lg">{weatherOverview.weather_overview}</p>
       </div>
-      {cityPhoto.results.length === 1 ? (
+      {cityPhoto.results.length > 0 && (
         <div className="w-full h-64 sm:h-80 xl:h-full xl:basis-full">
           <img
             src={cityPhoto.results[0].urls.regular}
@@ -136,8 +140,6 @@ const NowWeatherSection = () => {
             className="rounded-lg shadow-lg w-full h-full object-cover"
           />
         </div>
-      ) : (
-        ""
       )}
     </section>
   );
