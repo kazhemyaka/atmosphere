@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import WeatherIcon from "../WeatherIcon/WeatherIcon";
 import Loader from "../Loader/Loader";
 import WeatherInfos from "../WeatherInfos/WeatherInfos";
+import Title from "../Title/Title";
 
 const OPENWEATHERMAP_API_KEY = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
 
@@ -79,13 +80,11 @@ const HourlyWeatherSection = () => {
 
   return (
     <section className="px-5 sm:px-10 py-5 xl:h-full">
-      <h1 className="text-4xl sm:text-5xl font-bold mb-10">
-        Hourly weather forecast for{" "}
-        <span className="bg-gradient-to-bl from-dodger-blue to-cyan-600 bg-clip-text text-transparent">
-          {geolocationData[0].name}
-        </span>
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+      <Title
+        text="Hourly weather forecast for"
+        city={geolocationData[0].name}
+      />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-10">
         {hourlyWeather.hourly.map((hour) => (
           <div
             key={hour.dt}

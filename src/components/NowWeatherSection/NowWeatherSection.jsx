@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import WeatherIcon from "../WeatherIcon/WeatherIcon";
 import WeatherInfos from "../WeatherInfos/WeatherInfos";
 import Loader from "../Loader/Loader";
+import Title from "../Title/Title";
 
 const OPENWEATHERMAP_API_KEY = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
 const UNSPLASH_API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
@@ -108,12 +109,7 @@ const NowWeatherSection = () => {
       <div className="basis-full xl:basis-3/5">
         <div className="flex justify-between">
           <div>
-            <h1 className="text-4xl sm:text-5xl font-bold mb-4">
-              Weather in{" "}
-              <span className="bg-gradient-to-bl from-dodger-blue to-cyan-600 bg-clip-text text-transparent">
-                {geolocationData[0].name}
-              </span>
-            </h1>
+            <Title text="Weather in" city={geolocationData[0].name} />
             <div className="text-4xl sm:text-5xl mb-4">
               {Math.round(weatherData.current.temp)} °C{" "}
               <span className="text-3xl">
