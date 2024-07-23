@@ -17,10 +17,6 @@ const elements = [
     name: "Daily",
     href: "daily",
   },
-  {
-    name: "Week",
-    href: "week",
-  },
 ];
 
 function WeatherHeader() {
