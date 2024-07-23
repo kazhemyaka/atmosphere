@@ -4,6 +4,7 @@ import WeatherIcon from "../WeatherIcon/WeatherIcon";
 import WeatherInfos from "../WeatherInfos/WeatherInfos";
 import Loader from "../Loader/Loader";
 import Title from "../Title/Title";
+import NoCity from "../NoCity/NoCity";
 
 const OPENWEATHERMAP_API_KEY = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
 const UNSPLASH_API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
@@ -100,7 +101,14 @@ const NowWeatherSection = () => {
     setError(null);
   }, [city]);
 
-  if (!weatherData || !cityPhoto || !weatherOverview || !geolocationData) {
+  if (!city) {
+    return <NoCity />;
+  } else if (
+    !weatherData ||
+    !cityPhoto ||
+    !weatherOverview ||
+    !geolocationData
+  ) {
     return <Loader />;
   }
 

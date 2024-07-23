@@ -17,6 +17,10 @@ const router = createBrowserRouter([
     element: <WeatherLayout />,
     children: [
       {
+        index: true,
+        element: <NowWeather />,
+      },
+      {
         path: "now",
         element: <NowWeather />,
         children: [{ path: ":city", element: <NowWeather /> }],

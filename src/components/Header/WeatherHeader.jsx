@@ -52,7 +52,7 @@ function WeatherHeader() {
               {elements.map((element, index) => (
                 <li key={index}>
                   <NavLink
-                    to={`${element.href}/${city || ":city"}`}
+                    to={`${element.href}/${city || ""}`}
                     className="text-2xl hover:text-dodger-blue transition"
                     onClick={() => setOpen(false)}
                   >
@@ -69,7 +69,7 @@ function WeatherHeader() {
           {elements.map((element, index) => (
             <li key={index}>
               <NavLink
-                to={`${element.href}/${city || ":city"}`}
+                to={`${element.href}/${city || ""}`}
                 className="text-base hover:text-dodger-blue transition"
               >
                 {element.name}

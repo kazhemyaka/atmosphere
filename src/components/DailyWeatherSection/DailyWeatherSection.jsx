@@ -4,6 +4,7 @@ import WeatherIcon from "../WeatherIcon/WeatherIcon";
 import Loader from "../Loader/Loader";
 import WeatherInfos from "../WeatherInfos/WeatherInfos";
 import Title from "../Title/Title";
+import NoCity from "../NoCity/NoCity";
 
 const OPENWEATHERMAP_API_KEY = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
 
@@ -74,7 +75,9 @@ const DailyWeatherSection = () => {
     setError(null);
   }, [city]);
 
-  if (!dailyWeather || !geolocationData.length) {
+  if (!city) {
+    return <NoCity />;
+  } else if (!dailyWeather || !geolocationData.length) {
     return <Loader />;
   }
 
