@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import WeatherLayout from "./components/Layout/WeatherLayout";
 import NowWeather from "./pages/NowWeather/NowWeather";
 import HourlyWeather from "./pages/HourlyWeather/HourlyWeather";
+import DailyWeather from "./pages/DailyWeather/DailyWeather";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,11 @@ const router = createBrowserRouter([
         path: "hourly",
         element: <HourlyWeather />,
         children: [{ path: ":city", element: <HourlyWeather /> }],
+      },
+      {
+        path: "daily",
+        element: <DailyWeather />,
+        children: [{ path: ":city", element: <DailyWeather /> }],
       },
     ],
   },

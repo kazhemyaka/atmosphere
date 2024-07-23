@@ -14,8 +14,8 @@ const elements = [
     href: "hourly",
   },
   {
-    name: "Tomorrow",
-    href: "tomorrow",
+    name: "Daily",
+    href: "daily",
   },
   {
     name: "Week",

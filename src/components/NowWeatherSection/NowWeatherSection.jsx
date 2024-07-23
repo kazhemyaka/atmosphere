@@ -68,10 +68,10 @@ const NowWeatherSection = () => {
   const fetchCityPhoto = async () => {
     try {
       const response = await fetch(
-        `https://api.unsplash.com/search/photos?query=${geolocationData[0].name}&orientation=landscape&client_id=${UNSPLASH_API_KEY}`
+        `https://api.unsplash.com/search/photos?query=${geolocationData[0].name}&orientation=landscape&client_id=${UNSPLASH_API_KEY}&per_page=1&page=1`
       );
       const data = await response.json();
-      setCityPhoto(data.results[0].urls.regular);
+      setCityPhoto(data);
     } catch (error) {
       console.error(error);
       setError(error);
@@ -106,7 +106,7 @@ const NowWeatherSection = () => {
 
   return (
     <section className="px-5 sm:px-10 py-5 flex gap-10 xl:h-full flex-wrap-reverse xl:flex-nowrap">
-      <div className="basis-full xl:basis-3/5">
+      <div className="basis-full">
         <div className="flex justify-between">
           <div>
             <Title text="Weather in" city={geolocationData[0].name} />
@@ -128,13 +128,17 @@ const NowWeatherSection = () => {
         <h2 className="mt-5 mb-3 text-2xl sm:text-3xl font-bold">Overview:</h2>
         <p className="text-lg">{weatherOverview.weather_overview}</p>
       </div>
-      <div className="w-full h-64 sm:h-80 xl:h-full xl:basis-full">
-        <img
-          src={cityPhoto}
-          alt={city}
-          className="rounded-lg shadow-lg w-full h-full object-cover"
-        />
-      </div>
+      {cityPhoto.results.length === 1 ? (
+        <div className="w-full h-64 sm:h-80 xl:h-full xl:basis-full">
+          <img
+            src={cityPhoto.results[0].urls.regular}
+            alt={city}
+            className="rounded-lg shadow-lg w-full h-full object-cover"
+          />
+        </div>
+      ) : (
+        ""
+      )}
     </section>
   );
 };
