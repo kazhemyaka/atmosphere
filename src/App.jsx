@@ -6,12 +6,16 @@ import NowWeather from "./pages/NowWeather/NowWeather";
 import HourlyWeather from "./pages/HourlyWeather/HourlyWeather";
 import DailyWeather from "./pages/DailyWeather/DailyWeather";
 import { WeatherProvider } from "./context/WeatherContext";
+import NotFound from "./pages/NotFound/NotFound";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
-    children: [{ index: true, element: <Home /> }],
+    children: [
+      { index: true, element: <Home /> },
+      { path: "*", element: <NotFound /> },
+    ],
   },
   {
     path: "/weather",
@@ -35,6 +39,10 @@ const router = createBrowserRouter([
         path: "daily",
         element: <DailyWeather />,
         children: [{ path: ":city", element: <DailyWeather /> }],
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },

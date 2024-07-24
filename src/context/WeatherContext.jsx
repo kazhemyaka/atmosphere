@@ -7,7 +7,6 @@ export const WeatherProvider = ({ children }) => {
   const [cityPhoto, setCityPhoto] = useState(null);
   const [error, setError] = useState(null);
   const [lastFetchedCity, setLastFetchedCity] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   const fetchWeather = async (query) => {
     const response = await fetch(
@@ -16,8 +15,11 @@ export const WeatherProvider = ({ children }) => {
       }&q=${query}&days=8&aqi=no&alerts=no`
     );
     const data = await response.json();
-    console.log(data);
-    return data;
+    if (response.ok) {
+      return data;
+    } else {
+      throw new Error(data.error.message || "Failed to fetch weather data!");
+    }
   };
 
   const fetchCityPhoto = async (cityName) => {
@@ -36,7 +38,6 @@ export const WeatherProvider = ({ children }) => {
       return;
     }
 
-    setLoading(true);
     setError(null);
 
     try {
@@ -47,10 +48,10 @@ export const WeatherProvider = ({ children }) => {
       setCityPhoto(photoData);
       setLastFetchedCity(city);
     } catch (err) {
-      console.error(err);
+      console.error(weatherData);
       setError(err.message);
-    } finally {
-      setLoading(false);
+      setWeatherData(null);
+      setCityPhoto(null);
     }
   };
 
@@ -60,7 +61,6 @@ export const WeatherProvider = ({ children }) => {
         weatherData,
         cityPhoto,
         error,
-        loading,
         fetchData,
       }}
     >

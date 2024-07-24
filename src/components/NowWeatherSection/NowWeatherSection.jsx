@@ -16,21 +16,29 @@ import {
   FaWind,
 } from "react-icons/fa6";
 import { FaTachometerAlt } from "react-icons/fa";
+import Error from "../Error/Error";
+
+const UpdateMap = ({ center, zoom }) => {
+  const map = useMap();
+  useEffect(() => {
+    map.setView(center, zoom);
+  }, [center, zoom, map]);
+  return null;
+};
 
 const NowWeatherSection = () => {
   const { city } = useParams();
-  const { weatherData, cityPhoto, error, loading, fetchData } = useWeather();
+  const { weatherData, cityPhoto, error, fetchData } = useWeather();
 
   useEffect(() => {
-    if (city && (!weatherData || city !== weatherData.location.name)) {
+    if (city && (!weatherData || city !== weatherData?.location?.name)) {
       fetchData(city);
     }
   }, [city, weatherData]);
 
   if (!city) return <NoCity />;
-  if (loading) return <Loader />;
-  if (error) return <div>Error: {error}</div>;
-  if (!weatherData) return <div>No weather data available</div>;
+  if (error) return <Error>{error}</Error>;
+  if (!weatherData) return <Loader />;
 
   const weatherInfos = [
     {
@@ -109,6 +117,10 @@ const NowWeatherSection = () => {
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <UpdateMap
+            center={[weatherData.location.lat, weatherData.location.lon]}
+            zoom={10}
           />
         </MapContainer>
       </div>

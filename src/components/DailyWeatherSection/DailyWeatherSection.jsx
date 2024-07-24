@@ -7,20 +7,21 @@ import Title from "../Title/Title";
 import NoCity from "../NoCity/NoCity";
 import { useWeather } from "../../context/WeatherContext";
 import { FaWind, FaCloudShowersHeavy, FaDroplet, FaSun } from "react-icons/fa6";
+import Error from "../Error/Error";
 
 const DailyWeatherSection = () => {
   const { city } = useParams();
-  const { weatherData, error, loading, fetchData } = useWeather();
+  const { weatherData, error, fetchData } = useWeather();
 
   useEffect(() => {
     if (city && (!weatherData || city !== weatherData.location.name)) {
       fetchData(city);
     }
   }, [city, weatherData]);
+
   if (!city) return <NoCity />;
-  if (loading) return <Loader />;
-  if (error) return <div>Error: {error}</div>;
-  if (!weatherData) return <div>No weather data available</div>;
+  if (error) return <Error>{error}</Error>;
+  if (!weatherData) return <Loader />;
 
   return (
     <section className="px-5 sm:px-10 py-5 xl:h-full">
@@ -70,7 +71,6 @@ const DailyWeatherSection = () => {
                 isDay={true}
                 size={70}
               />
-              {console.log(day.day.condition.code)}
               <p className="text-3xl">
                 <span className="text-2xl">Avg:</span>{" "}
                 {Math.round(day.day.avgtemp_c)} °C{" "}

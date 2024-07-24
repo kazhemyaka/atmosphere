@@ -15,10 +15,11 @@ import {
   FaWind,
 } from "react-icons/fa6";
 import { FaTachometerAlt } from "react-icons/fa";
+import Error from "../Error/Error";
 
 const HourlyWeatherSection = () => {
   const { city } = useParams();
-  const { weatherData, error, loading, fetchData } = useWeather();
+  const { weatherData, error, fetchData } = useWeather();
 
   useEffect(() => {
     if (city && (!weatherData || city !== weatherData.location.name)) {
@@ -27,9 +28,8 @@ const HourlyWeatherSection = () => {
   }, [city, weatherData]);
 
   if (!city) return <NoCity />;
-  if (loading) return <Loader />;
-  if (error) return <div>Error: {error}</div>;
-  if (!weatherData) return <div>No weather data available</div>;
+  if (error) return <Error>{error}</Error>;
+  if (!weatherData) return <Loader />;
 
   return (
     <section className="px-5 sm:px-10 py-5 xl:h-full">
