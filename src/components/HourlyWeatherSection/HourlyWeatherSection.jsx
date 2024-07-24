@@ -19,7 +19,7 @@ import Error from "../Error/Error";
 
 const HourlyWeatherSection = () => {
   const { city } = useParams();
-  const { weatherData, error, fetchData } = useWeather();
+  const { weatherData, loading, error, fetchData } = useWeather();
 
   useEffect(() => {
     if (city && (!weatherData || city !== weatherData.location.name)) {
@@ -29,7 +29,7 @@ const HourlyWeatherSection = () => {
 
   if (!city) return <NoCity />;
   if (error) return <Error>{error}</Error>;
-  if (!weatherData) return <Loader />;
+  if (loading || !weatherData) return <Loader />;
 
   return (
     <section className="px-5 sm:px-10 py-5 xl:h-full">

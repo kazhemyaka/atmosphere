@@ -7,6 +7,7 @@ export const WeatherProvider = ({ children }) => {
   const [cityPhoto, setCityPhoto] = useState(null);
   const [error, setError] = useState(null);
   const [lastFetchedCity, setLastFetchedCity] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const fetchWeather = async (query) => {
     const response = await fetch(
@@ -38,6 +39,7 @@ export const WeatherProvider = ({ children }) => {
       return;
     }
 
+    setLoading(true);
     setError(null);
 
     try {
@@ -52,6 +54,8 @@ export const WeatherProvider = ({ children }) => {
       setError(err.message);
       setWeatherData(null);
       setCityPhoto(null);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -62,6 +66,7 @@ export const WeatherProvider = ({ children }) => {
         cityPhoto,
         error,
         fetchData,
+        loading,
       }}
     >
       {children}

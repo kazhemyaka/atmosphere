@@ -28,7 +28,7 @@ const UpdateMap = ({ center, zoom }) => {
 
 const NowWeatherSection = () => {
   const { city } = useParams();
-  const { weatherData, cityPhoto, error, fetchData } = useWeather();
+  const { weatherData, loading, cityPhoto, error, fetchData } = useWeather();
 
   useEffect(() => {
     if (city && (!weatherData || city !== weatherData?.location?.name)) {
@@ -38,7 +38,7 @@ const NowWeatherSection = () => {
 
   if (!city) return <NoCity />;
   if (error) return <Error>{error}</Error>;
-  if (!weatherData) return <Loader />;
+  if (loading || !weatherData) return <Loader />;
 
   const weatherInfos = [
     {
