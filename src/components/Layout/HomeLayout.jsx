@@ -5,7 +5,7 @@ function HomeLayout() {
   return (
     <div className="flex flex-col h-screen">
       <HomeHeader />
-      <main className="flex-grow content-center justify-center">
+      <main className="flex-grow">
         <Outlet />
       </main>
     </div>
