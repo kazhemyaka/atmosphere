@@ -7,6 +7,7 @@ import HourlyWeather from "./pages/HourlyWeather/HourlyWeather";
 import DailyWeather from "./pages/DailyWeather/DailyWeather";
 import { WeatherProvider } from "./context/WeatherContext";
 import NotFound from "./pages/NotFound/NotFound";
+import ContactUs from "./pages/ContactUs/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "*", element: <NotFound /> },
+      { path: "contact", element: <ContactUs /> },
     ],
   },
   {
