@@ -1,146 +1,118 @@
-import { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useWeather } from "../../context/WeatherContext";
 import WeatherIcon from "../WeatherIcon/WeatherIcon";
 import WeatherInfos from "../WeatherInfos/WeatherInfos";
 import Loader from "../Loader/Loader";
 import Title from "../Title/Title";
 import NoCity from "../NoCity/NoCity";
-
-const OPENWEATHERMAP_API_KEY = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
-const UNSPLASH_API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import {
+  FaCloudShowersHeavy,
+  FaCloudSun,
+  FaDroplet,
+  FaSun,
+  FaTemperatureHalf,
+  FaWind,
+} from "react-icons/fa6";
+import { FaTachometerAlt } from "react-icons/fa";
 
 const NowWeatherSection = () => {
   const { city } = useParams();
-  const [weatherData, setWeatherData] = useState(null);
-  const [cityPhoto, setCityPhoto] = useState(null);
-  const [weatherOverview, setWeatherOverview] = useState(null);
-  const [geolocationData, setGeolocationData] = useState([]);
-  const [error, setError] = useState(null);
-
-  const fetchGeolocation = async () => {
-    try {
-      const response = await fetch(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${OPENWEATHERMAP_API_KEY}`
-      );
-      const data = await response.json();
-      setGeolocationData(data);
-    } catch (error) {
-      console.error(error);
-      setError(error);
-    }
-  };
-
-  const fetchWeatherData = async () => {
-    try {
-      if (geolocationData.length > 0) {
-        const { lat, lon } = geolocationData[0];
-
-        const weatherResponse = await fetch(
-          `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,daily,alerts&appid=${OPENWEATHERMAP_API_KEY}&units=metric`
-        );
-        const weatherData = await weatherResponse.json();
-        setWeatherData(weatherData);
-      } else {
-        console.error("City not found");
-      }
-    } catch (error) {
-      console.error(error);
-      setError(error);
-    }
-  };
-
-  const fetchWeatherOverview = async () => {
-    try {
-      if (geolocationData.length > 0) {
-        const { lat, lon } = geolocationData[0];
-
-        const response = await fetch(
-          `https://api.openweathermap.org/data/3.0/onecall/overview?lat=${lat}&lon=${lon}&appid=${OPENWEATHERMAP_API_KEY}&units=metric`
-        );
-        const data = await response.json();
-        setWeatherOverview(data);
-      }
-    } catch (error) {
-      console.error(error);
-      setError(error);
-    }
-  };
-
-  const fetchCityPhoto = async () => {
-    try {
-      const response = await fetch(
-        `https://api.unsplash.com/search/photos?query=${geolocationData[0].name}&orientation=landscape&client_id=${UNSPLASH_API_KEY}&per_page=1&page=1`
-      );
-      const data = await response.json();
-      setCityPhoto(data);
-    } catch (error) {
-      console.error(error);
-      setError(error);
-    }
-  };
+  const { weatherData, cityPhoto, error, loading, fetchData } = useWeather();
 
   useEffect(() => {
-    if (city) {
-      fetchGeolocation();
+    if (city && (!weatherData || city !== weatherData.location.name)) {
+      fetchData(city);
     }
-  }, [city]);
+  }, [city, weatherData]);
 
-  useEffect(() => {
-    if (geolocationData.length > 0) {
-      fetchWeatherData();
-      fetchWeatherOverview();
-      fetchCityPhoto();
-    }
-  }, [geolocationData]);
+  if (!city) return <NoCity />;
+  if (loading) return <Loader />;
+  if (error) return <div>Error: {error}</div>;
+  if (!weatherData) return <div>No weather data available</div>;
 
-  useEffect(() => {
-    setWeatherData(null);
-    setCityPhoto(null);
-    setWeatherOverview(null);
-    setGeolocationData([]);
-    setError(null);
-  }, [city]);
-
-  if (!city) {
-    return <NoCity />;
-  } else if (
-    !weatherData ||
-    !cityPhoto ||
-    !weatherOverview ||
-    !geolocationData
-  ) {
-    return <Loader />;
-  }
+  const weatherInfos = [
+    {
+      icon: <FaTemperatureHalf />,
+      desc: "Feels like",
+      value: `${Math.round(weatherData.current.feelslike_c)} °C`,
+    },
+    {
+      icon: <FaWind />,
+      desc: "Wind",
+      value: `${weatherData.current.wind_kph} km/h ${weatherData.current.wind_degree}° ${weatherData.current.wind_dir}`,
+    },
+    {
+      icon: <FaCloudSun />,
+      desc: "Cloud cover",
+      value: `${weatherData.current.cloud}%`,
+    },
+    {
+      icon: <FaCloudShowersHeavy />,
+      desc: "Precipitation",
+      value: `${weatherData.current.precip_mm} mm`,
+    },
+    {
+      icon: <FaDroplet />,
+      desc: "Humidity",
+      value: `${weatherData.current.humidity}%`,
+    },
+    {
+      icon: <FaTemperatureHalf />,
+      desc: "Dew point",
+      value: `${Math.round(weatherData.current.dewpoint_c)} °C`,
+    },
+    {
+      icon: <FaTachometerAlt />,
+      desc: "Pressure",
+      value: `${weatherData.current.pressure_mb} hPa`,
+    },
+    {
+      icon: <FaSun />,
+      desc: "UV Index",
+      value: weatherData.current.uv,
+    },
+  ];
 
   return (
-    <section className="px-5 sm:px-10 py-5 flex gap-10 xl:h-full flex-wrap-reverse xl:flex-nowrap">
+    <section className="px-5 sm:px-10 py-5 flex gap-7 xl:h-full flex-wrap-reverse xl:flex-nowrap">
       <div
-        className={`basis-full ${
-          cityPhoto.results.length === 0 ? "" : "xl:basis-2/4"
+        className={`basis-full h-full flex gap-7 flex-col ${
+          cityPhoto.results[0] ? "xl:basis-2/4" : ""
         }`}
       >
         <div className="flex justify-between">
           <div>
-            <Title text="Weather in" city={geolocationData[0].name} />
-            <div className="text-4xl sm:text-5xl mb-4">
-              {Math.round(weatherData.current.temp)} °C{" "}
+            <Title text="Weather in" city={weatherData.location.name} />
+            <div className="text-4xl sm:text-5xl">
+              {Math.round(weatherData.current.temp_c)} °C{" "}
               <span className="text-3xl">
-                {weatherData.current.weather[0].main}
+                {weatherData.current.condition.text}
               </span>
             </div>
           </div>
           <div>
             <WeatherIcon
-              iconCode={weatherData.current.weather[0].icon}
+              weatherCode={weatherData.current.condition.code}
+              isDay={weatherData.current.is_day}
               size={100}
             />
           </div>
         </div>
-        <WeatherInfos weatherData={weatherData.current} />
-        <h2 className="mt-5 mb-3 text-2xl sm:text-3xl font-bold">Overview:</h2>
-        <p className="text-lg">{weatherOverview.weather_overview}</p>
+        <WeatherInfos weatherInfos={weatherInfos} />
+        <MapContainer
+          center={[weatherData.location.lat, weatherData.location.lon]}
+          zoom={10}
+          className="h-80 sm:h-96 xl:h-full rounded-lg shadow-lg"
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+        </MapContainer>
       </div>
-      {cityPhoto.results.length > 0 && (
+      {cityPhoto.results[0] && (
         <div className="w-full h-64 sm:h-80 xl:h-full xl:basis-full">
           <img
             src={cityPhoto.results[0].urls.regular}

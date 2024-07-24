@@ -11,48 +11,67 @@ import {
   WiThunderstorm,
   WiSnow,
   WiFog,
+  WiSleet,
+  WiRainMix,
+  WiStormShowers,
 } from "weather-icons-react";
 
 const weatherIconMap = {
-  "01d": "day-sunny",
-  "01n": "night-clear",
-  "02d": "day-cloudy",
-  "02n": "night-alt-cloudy",
-  "03d": "cloud",
-  "03n": "cloud",
-  "04d": "cloudy",
-  "04n": "cloudy",
-  "09d": "showers",
-  "09n": "showers",
-  "10d": "day-rain",
-  "10n": "night-alt-rain",
-  "11d": "thunderstorm",
-  "11n": "thunderstorm",
-  "13d": "snow",
-  "13n": "snow",
-  "50d": "fog",
-  "50n": "fog",
+  1000: { day: WiDaySunny, night: WiNightClear },
+  1003: { day: WiDayCloudy, night: WiNightAltCloudy },
+  1006: { day: WiCloudy, night: WiCloudy },
+  1009: { day: WiCloud, night: WiCloud },
+  1030: { day: WiFog, night: WiFog },
+  1063: { day: WiShowers, night: WiShowers },
+  1066: { day: WiSnow, night: WiSnow },
+  1069: { day: WiSleet, night: WiSleet },
+  1072: { day: WiRainMix, night: WiRainMix },
+  1087: { day: WiStormShowers, night: WiStormShowers },
+  1114: { day: WiSnow, night: WiSnow },
+  1117: { day: WiSnow, night: WiSnow },
+  1135: { day: WiFog, night: WiFog },
+  1147: { day: WiFog, night: WiFog },
+  1150: { day: WiShowers, night: WiShowers },
+  1153: { day: WiShowers, night: WiShowers },
+  1168: { day: WiRainMix, night: WiRainMix },
+  1171: { day: WiRainMix, night: WiRainMix },
+  1180: { day: WiDayRain, night: WiNightAltRain },
+  1183: { day: WiDayRain, night: WiNightAltRain },
+  1186: { day: WiDayRain, night: WiNightAltRain },
+  1189: { day: WiDayRain, night: WiNightAltRain },
+  1192: { day: WiDayRain, night: WiNightAltRain },
+  1195: { day: WiDayRain, night: WiNightAltRain },
+  1198: { day: WiRainMix, night: WiRainMix },
+  1201: { day: WiRainMix, night: WiRainMix },
+  1204: { day: WiSleet, night: WiSleet },
+  1207: { day: WiSleet, night: WiSleet },
+  1210: { day: WiSnow, night: WiSnow },
+  1213: { day: WiSnow, night: WiSnow },
+  1216: { day: WiSnow, night: WiSnow },
+  1219: { day: WiSnow, night: WiSnow },
+  1222: { day: WiSnow, night: WiSnow },
+  1225: { day: WiSnow, night: WiSnow },
+  1237: { day: WiSnow, night: WiSnow },
+  1240: { day: WiShowers, night: WiShowers },
+  1243: { day: WiDayRain, night: WiNightAltRain },
+  1246: { day: WiDayRain, night: WiNightAltRain },
+  1249: { day: WiSleet, night: WiSleet },
+  1252: { day: WiSleet, night: WiSleet },
+  1255: { day: WiSnow, night: WiSnow },
+  1258: { day: WiSnow, night: WiSnow },
+  1261: { day: WiSnow, night: WiSnow },
+  1264: { day: WiSnow, night: WiSnow },
+  1273: { day: WiStormShowers, night: WiStormShowers },
+  1276: { day: WiThunderstorm, night: WiThunderstorm },
+  1279: { day: WiSnow, night: WiSnow },
+  1282: { day: WiSnow, night: WiSnow },
 };
 
-const WeatherIcon = ({ iconCode, size }) => {
-  const iconName = weatherIconMap[iconCode];
+const WeatherIcon = ({ weatherCode, isDay, size }) => {
+  const timeOfDay = isDay ? "day" : "night";
+  const IconComponent = weatherIconMap[weatherCode]?.[timeOfDay] || WiDaySunny;
 
-  const icons = {
-    "day-sunny": <WiDaySunny size={size} color="#000" />,
-    "night-clear": <WiNightClear size={size} color="#000" />,
-    "day-cloudy": <WiDayCloudy size={size} color="#000" />,
-    "night-alt-cloudy": <WiNightAltCloudy size={size} color="#000" />,
-    cloud: <WiCloud size={size} color="#000" />,
-    cloudy: <WiCloudy size={size} color="#000" />,
-    showers: <WiShowers size={size} color="#000" />,
-    "day-rain": <WiDayRain size={size} color="#000" />,
-    "night-alt-rain": <WiNightAltRain size={size} color="#000" />,
-    thunderstorm: <WiThunderstorm size={size} color="#000" />,
-    snow: <WiSnow size={size} color="#000" />,
-    fog: <WiFog size={size} color="#000" />,
-  };
-
-  return icons[iconName] || null;
+  return <IconComponent size={size} color="#000" />;
 };
 
 export default WeatherIcon;

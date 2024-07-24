@@ -5,6 +5,7 @@ import WeatherLayout from "./components/Layout/WeatherLayout";
 import NowWeather from "./pages/NowWeather/NowWeather";
 import HourlyWeather from "./pages/HourlyWeather/HourlyWeather";
 import DailyWeather from "./pages/DailyWeather/DailyWeather";
+import { WeatherProvider } from "./context/WeatherContext";
 
 const router = createBrowserRouter([
   {
@@ -40,7 +41,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <WeatherProvider>
+      <RouterProvider router={router} />
+    </WeatherProvider>
+  );
 }
 
 export default App;

@@ -2,7 +2,7 @@ import { IconContext } from "react-icons";
 
 const WeatherInfo = ({ icon, desc, value }) => {
   return (
-    <li className="bg-sky-200 p-2 rounded-lg flex items-center gap-2">
+    <li className="p-3 rounded-lg shadow-lg flex items-center gap-2">
       <IconContext.Provider value={{ size: "1.5rem" }}>
         {icon}
       </IconContext.Provider>
