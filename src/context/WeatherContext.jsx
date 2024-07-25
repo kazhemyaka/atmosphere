@@ -11,7 +11,7 @@ export const WeatherProvider = ({ children }) => {
 
   const fetchWeather = async (query) => {
     const response = await fetch(
-      `http://api.weatherapi.com/v1/forecast.json?key=${
+      `https://api.weatherapi.com/v1/forecast.json?key=${
         import.meta.env.VITE_WEATHER_API_KEY
       }&q=${query}&days=9&aqi=no&alerts=no`,
       { mode: "cors" }
