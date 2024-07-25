@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Fade as Hamburger } from "hamburger-react";
 import { useState } from "react";
 
-function HomeHeader() {
+const HomeHeader = () => {
   const [isOpen, setOpen] = useState(false);
 
   return (
@@ -25,12 +25,14 @@ function HomeHeader() {
       >
         <ul className="flex items-center gap-5 flex-col md:flex-row">
           <li className="text-2xl md:text-base hover:text-dodger-blue transition">
-            <NavLink to="/contact">Contact Us</NavLink>
+            <NavLink to="/contact" onClick={() => setOpen(false)}>
+              Contact Us
+            </NavLink>
           </li>
         </ul>
       </nav>
     </header>
   );
-}
+};
 
 export default HomeHeader;

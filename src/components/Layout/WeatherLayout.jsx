@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import WeatherHeader from "../Header/WeatherHeader";
 
-function WeatherLayout() {
+const WeatherLayout = () => {
   return (
     <div className="flex flex-col h-screen">
       <WeatherHeader />
@@ -10,6 +10,6 @@ function WeatherLayout() {
       </main>
     </div>
   );
-}
+};
 
 export default WeatherLayout;

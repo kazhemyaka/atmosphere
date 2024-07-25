@@ -19,7 +19,7 @@ const elements = [
   },
 ];
 
-function WeatherHeader() {
+const WeatherHeader = () => {
   const [isOpen, setOpen] = useState(false);
   const { city } = useParams();
 
@@ -42,11 +42,11 @@ function WeatherHeader() {
         </NavLink>
         <Search />
       </div>
-      <div className="md:hidden z-50">
+      <div className="md:hidden z-[1002]">
         <Hamburger toggled={isOpen} toggle={setOpen} rounded />
       </div>
       {isOpen && (
-        <div className="fixed inset-0 bg-white z-40 overflow-hidden md:hidden">
+        <div className="fixed inset-0 bg-white z-[1001] overflow-hidden md:hidden">
           <nav className="h-full flex items-center justify-center">
             <ul className="flex items-center gap-5 flex-col">
               {elements.map((element, index) => (
@@ -80,6 +80,6 @@ function WeatherHeader() {
       </nav>
     </header>
   );
-}
+};
 
 export default WeatherHeader;

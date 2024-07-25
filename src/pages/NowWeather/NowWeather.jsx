@@ -1,7 +1,7 @@
 import NowWeatherSection from "../../components/NowWeatherSection/NowWeatherSection";
 
-function NowWeather() {
+const NowWeather = () => {
   return <NowWeatherSection />;
-}
+};
 
 export default NowWeather;

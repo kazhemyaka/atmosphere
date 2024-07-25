@@ -47,7 +47,7 @@ const ContactUsForm = () => {
         validationSchema={ContactUsSchema}
         onSubmit={handleSubmit}
       >
-        <Form className="w-full sm:w-6/12 mx-auto">
+        <Form className="w-full md:w-6/12 mx-auto">
           <h1 className="text-4xl font-bold">Contact Us</h1>
           <div className="mt-5">
             <label htmlFor="name" className="block text-lg font-medium">

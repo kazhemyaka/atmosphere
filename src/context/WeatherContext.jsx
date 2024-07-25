@@ -13,10 +13,12 @@ export const WeatherProvider = ({ children }) => {
     const response = await fetch(
       `http://api.weatherapi.com/v1/forecast.json?key=${
         import.meta.env.VITE_WEATHER_API_KEY
-      }&q=${query}&days=8&aqi=no&alerts=no`
+      }&q=${query}&days=9&aqi=no&alerts=no`,
+      { mode: "cors" }
     );
     const data = await response.json();
     if (response.ok) {
+      console.log(data);
       return data;
     } else {
       throw new Error(data.error.message || "Failed to fetch weather data!");

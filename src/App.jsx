@@ -9,53 +9,56 @@ import { WeatherProvider } from "./context/WeatherContext";
 import NotFound from "./pages/NotFound/NotFound";
 import ContactUs from "./pages/ContactUs/ContactUs";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <HomeLayout />,
-    children: [
-      { index: true, element: <Home /> },
-      { path: "*", element: <NotFound /> },
-      { path: "contact", element: <ContactUs /> },
-    ],
-  },
-  {
-    path: "/weather",
-    element: <WeatherLayout />,
-    children: [
-      {
-        index: true,
-        element: <NowWeather />,
-      },
-      {
-        path: "now",
-        element: <NowWeather />,
-        children: [{ path: ":city", element: <NowWeather /> }],
-      },
-      {
-        path: "hourly",
-        element: <HourlyWeather />,
-        children: [{ path: ":city", element: <HourlyWeather /> }],
-      },
-      {
-        path: "daily",
-        element: <DailyWeather />,
-        children: [{ path: ":city", element: <DailyWeather /> }],
-      },
-      {
-        path: "*",
-        element: <NotFound />,
-      },
-    ],
-  },
-]);
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <HomeLayout />,
+      children: [
+        { index: true, element: <Home /> },
+        { path: "*", element: <NotFound /> },
+        { path: "contact", element: <ContactUs /> },
+      ],
+    },
+    {
+      path: "/weather",
+      element: <WeatherLayout />,
+      children: [
+        {
+          index: true,
+          element: <NowWeather />,
+        },
+        {
+          path: "now",
+          element: <NowWeather />,
+          children: [{ path: ":city", element: <NowWeather /> }],
+        },
+        {
+          path: "hourly",
+          element: <HourlyWeather />,
+          children: [{ path: ":city", element: <HourlyWeather /> }],
+        },
+        {
+          path: "daily",
+          element: <DailyWeather />,
+          children: [{ path: ":city", element: <DailyWeather /> }],
+        },
+        {
+          path: "*",
+          element: <NotFound />,
+        },
+      ],
+    },
+  ],
+  { basename: import.meta.env.BASE_URL }
+);
 
-function App() {
+const App = () => {
   return (
     <WeatherProvider>
       <RouterProvider router={router} />
     </WeatherProvider>
   );
-}
+};
 
 export default App;

@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import HomeHeader from "../Header/HomeHeader";
 
-function HomeLayout() {
+const HomeLayout = () => {
   return (
     <div className="flex flex-col h-screen">
       <HomeHeader />
@@ -10,6 +10,6 @@ function HomeLayout() {
       </main>
     </div>
   );
-}
+};
 
 export default HomeLayout;
