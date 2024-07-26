@@ -2,7 +2,7 @@ import DateTime from "../DateTime/DateTime";
 import WeatherIcon from "../WeatherIcon/WeatherIcon";
 import TempWithDesc from "../TempWithDesc/TempWithDesc";
 import WeatherInfos from "../WeatherInfos/WeatherInfos";
-import weatherInfos from "../DailyWeatherSection/dailyWeatherInfos";
+import weatherInfos from "./dailyWeatherInfos";
 
 const DailyWeatherCard = ({ day, timeZone }) => {
   return (
